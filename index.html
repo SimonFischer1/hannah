@@ -11,10 +11,10 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
             overflow: hidden;
-            background: linear-gradient(135deg, #fff5f7 0%, #fffacd 50%, #f0ffc0 100%);
+            background: #fafafa;
             min-height: 100vh;
             min-width: 100vw;
             display: flex;
@@ -25,34 +25,33 @@
         /* Sonnenblumen im Hintergrund */
         .sunflower {
             position: absolute;
-            opacity: 0.6;
+            opacity: 0.5;
             pointer-events: none;
+            z-index: 1;
         }
 
         .sunflower svg {
             display: block;
-            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08));
         }
 
-        /* Start Screen */
-        .start-screen {
+        /* Screen Container */
+        .screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #fff5f7 0%, #fffacd 50%, #f0ffc0 100%);
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
-            gap: 40px;
-            animation: fadeIn 0.5s ease-in;
+            z-index: 100;
+            animation: fadeIn 0.6s ease-out;
         }
 
-        .start-screen.hidden {
-            display: none;
+        .screen.active {
+            display: flex;
         }
 
         @keyframes fadeIn {
@@ -64,66 +63,75 @@
             }
         }
 
-        .question-text {
-            font-size: 3em;
-            color: #d946a6;
-            text-align: center;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            margin: 0 30px;
-            animation: pulse 1.5s ease-in-out infinite;
+        /* ===== START SCREEN ===== */
+        .start-screen {
+            background: linear-gradient(135deg, #f5fff0 0%, #fffff0 100%);
+            gap: 50px;
         }
 
-        @keyframes pulse {
+        .question-text {
+            font-size: 3.5em;
+            color: #1d1d1d;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: none;
+            margin: 0 30px;
+            animation: subtle-pulse 2.5s ease-in-out infinite;
+            letter-spacing: -0.5px;
+        }
+
+        @keyframes subtle-pulse {
             0%, 100% {
                 transform: scale(1);
             }
             50% {
-                transform: scale(1.05);
+                transform: scale(1.02);
             }
         }
 
         .button-container {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
+            z-index: 50;
         }
 
         button {
-            padding: 15px 40px;
-            font-size: 1.5em;
+            padding: 16px 45px;
+            font-size: 1.2em;
             border: none;
-            border-radius: 50px;
+            border-radius: 12px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 500;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            font-family: inherit;
+        }
+
+        button:active {
+            transform: scale(0.97);
         }
 
         .yes-btn {
-            background: linear-gradient(135deg, #d946a6, #ec4899);
+            background: linear-gradient(135deg, #34c759, #00d84f);
             color: white;
-            transform: scale(1);
         }
 
         .yes-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(217, 70, 166, 0.4);
-        }
-
-        .yes-btn:active {
-            transform: scale(0.95);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.3);
+            transform: translateY(-2px);
         }
 
         .no-btn {
-            background: linear-gradient(135deg, #22c55e, #84cc16);
-            color: white;
+            background: #f0f0f0;
+            color: #1d1d1d;
             position: relative;
+            border: 1px solid #e5e5e5;
         }
 
         .no-btn:hover {
-            animation: jumpAway 0.3s ease-in-out;
+            animation: jumpAway 0.4s ease-in-out;
         }
 
         @keyframes jumpAway {
@@ -131,54 +139,51 @@
                 transform: translate(0, 0);
             }
             25% {
-                transform: translate(30px, -30px);
+                transform: translate(40px, -35px);
             }
             50% {
-                transform: translate(-40px, 20px);
+                transform: translate(-50px, 25px);
             }
             75% {
-                transform: translate(20px, -20px);
+                transform: translate(30px, -25px);
             }
             100% {
-                transform: translate(-30px, 10px);
+                transform: translate(-40px, 15px);
             }
         }
 
-        /* Main Content */
+        /* ===== MAIN CONTENT SCREEN ===== */
+        .main-screen {
+            background: linear-gradient(135deg, #f5fff0 0%, #fffff0 100%);
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
         .container {
-            position: relative;
             width: 100%;
-            height: 100vh;
+            max-width: 800px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            gap: 40px;
             z-index: 10;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.8s ease-in;
-        }
-
-        .container.visible {
-            opacity: 1;
-            pointer-events: all;
         }
 
         .content {
             text-align: center;
             z-index: 20;
-            background: rgba(255, 255, 255, 0.85);
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            max-width: 700px;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(217, 70, 166, 0.2);
+            background: rgba(255, 255, 255, 0.7);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            width: 100%;
         }
 
         .beating-heart {
-            font-size: 4em;
-            margin-bottom: 30px;
+            font-size: 3em;
+            margin-bottom: 25px;
             animation: heartBeat 1.3s ease-in-out infinite;
             display: inline-block;
         }
@@ -188,79 +193,293 @@
                 transform: scale(1);
             }
             10%, 30% {
-                transform: scale(1.15);
+                transform: scale(1.18);
             }
             20%, 40%, 60%, 80% {
                 transform: scale(1);
             }
             50% {
-                transform: scale(1.12);
+                transform: scale(1.15);
             }
             70% {
-                transform: scale(1.08);
+                transform: scale(1.1);
             }
         }
 
         h1 {
-            color: #d946a6;
-            font-size: 2.5em;
+            color: #1d1d1d;
+            font-size: 2.2em;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            letter-spacing: -0.3px;
         }
 
         .sweet-message {
-            color: #166534;
-            font-size: 1.3em;
-            line-height: 1.8;
+            color: #424245;
+            font-size: 1.1em;
+            line-height: 1.9;
             margin: 30px 0;
-            font-style: italic;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+            font-weight: 400;
+            text-shadow: none;
+        }
+
+        .close-button {
+            background: linear-gradient(135deg, #34c759, #00d84f);
+            color: white;
+            padding: 14px 50px;
+            font-size: 1em;
+            margin-top: 30px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.3);
         }
 
         .footer {
-            position: absolute;
-            bottom: 30px;
-            width: 100%;
-            text-align: center;
-            color: #d946a6;
-            font-weight: bold;
-            z-index: 20;
-            font-size: 1.1em;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+            color: #8e8e93;
+            font-weight: 500;
+            font-size: 0.95em;
+            text-shadow: none;
+            margin-top: 20px;
         }
 
+        /* ===== RATING SCREEN ===== */
+        .rating-screen {
+            background: linear-gradient(135deg, #f5fff0 0%, #fffff0 100%);
+            gap: 40px;
+        }
+
+        .rating-container {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .rating-title {
+            font-size: 1.8em;
+            color: #1d1d1d;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .rating-label {
+            color: #8e8e93;
+            font-size: 1em;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .rating-group {
+            margin-bottom: 40px;
+        }
+
+        .stars-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .star {
+            font-size: 2.5em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0.3;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .star:hover, .star.active {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        .warning-message {
+            color: #ff3b30;
+            font-size: 0.95em;
+            margin-top: 20px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .warning-message.show {
+            display: block;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-5px);
+            }
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+        .submit-rating-btn {
+            background: linear-gradient(135deg, #34c759, #00d84f);
+            color: white;
+            padding: 16px 50px;
+            font-size: 1em;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .submit-rating-btn.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .submit-rating-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.3);
+        }
+
+        /* ===== SCREENSHOT SCREEN ===== */
+        .screenshot-screen {
+            background: linear-gradient(135deg, #f5fff0 0%, #fffff0 100%);
+            gap: 30px;
+            padding: 40px 20px;
+        }
+
+        .screenshot-card {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .best-friend-text {
+            font-size: 2em;
+            color: #1d1d1d;
+            font-weight: 600;
+            margin-bottom: 30px;
+            letter-spacing: -0.3px;
+        }
+
+        .rating-display {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .rating-stars {
+            font-size: 2em;
+            display: flex;
+            gap: 8px;
+        }
+
+        .rating-text {
+            color: #8e8e93;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .whatsapp-instruction {
+            color: #424245;
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin: 30px 0;
+            font-weight: 400;
+        }
+
+        .whatsapp-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #34c759, #00d84f);
+            color: white;
+            padding: 16px 50px;
+            font-size: 1em;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .whatsapp-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.3);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
             .question-text {
-                font-size: 2em;
-            }
-
-            button {
-                padding: 12px 30px;
-                font-size: 1.2em;
-            }
-
-            .content {
-                padding: 30px;
-                margin: 30px;
+                font-size: 2.2em;
             }
 
             h1 {
-                font-size: 1.8em;
+                font-size: 1.6em;
             }
 
             .sweet-message {
-                font-size: 1.1em;
+                font-size: 1em;
+                line-height: 1.8;
             }
 
-            .beating-heart {
-                font-size: 3em;
+            .content {
+                padding: 30px 20px;
+            }
+
+            .rating-container {
+                padding: 30px 20px;
+            }
+
+            .stars-container {
+                gap: 10px;
+            }
+
+            .star {
+                font-size: 2em;
+            }
+
+            .screenshot-card {
+                padding: 30px 20px;
+            }
+
+            .best-friend-text {
+                font-size: 1.5em;
+            }
+
+            button, .close-button, .submit-rating-btn, .whatsapp-link {
+                padding: 12px 35px;
+                font-size: 1em;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Start Screen -->
-    <div class="start-screen" id="startScreen">
+    <!-- START SCREEN -->
+    <div class="screen start-screen active" id="startScreen">
         <div class="question-text">
             Hast du mich lieb? 💗
         </div>
@@ -270,36 +489,94 @@
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container" id="mainContainer">
-        <div class="content">
-            <div class="beating-heart">❤️</div>
-            <h1>Für meine liebste Hannah</h1>
-            <div class="sweet-message">
-                Meine liebste Hannah,<br><br>
-                
-                von Venlo bis Bayern - die Distanz zwischen uns ist groß, aber meine Liebe zu dir ist unendlich viel größer. 
-                Während du die schöne Kultur und die Kanäle von Venlo genießt, denke ich ständig an dich und vermisse dich so sehr. 
-                Jeder Moment ohne dich fühlt sich wie eine Ewigkeit an, und ich kann die Zeit kaum erwarten, bis ich dich wieder in meine Arme nehmen kann.<br><br>
-                
-                Du bist mein Sonnenschein, mein Glück und mein liebstes Abenteuer. Deine Lächeln lässt mein Herz schneller schlagen, 
-                deine Nähe macht alles besser und deine Liebe ist das Beste, was mir jemals passiert ist.<br><br>
-                
-                Ich habe dich so LIEB!!. ✨💛💚<br><br>
-                
-                Dein Simon ❤️
+    <!-- MAIN CONTENT SCREEN -->
+    <div class="screen main-screen" id="mainScreen">
+        <div class="container">
+            <div class="content">
+                <div class="beating-heart">❤️</div>
+                <h1>Für meine liebste Hannah</h1>
+                <div class="sweet-message">
+                    Meine liebste Hannah,<br><br>
+                    
+                    von Venlo bis Bayern – die Distanz zwischen uns ist groß, aber meine Liebe zu dir ist unendlich viel größer. 
+                    Während du die schöne Kultur und die wunderschönen Kanäle von Venlo genießt, denke ich ständig an dich und vermisse dich so sehr. 
+                    Jeder Moment ohne dich fühlt sich wie eine Ewigkeit an, und ich kann die Zeit kaum erwarten, bis ich dich wieder in meine Arme nehmen kann.<br><br>
+                    
+                    Du bist mein Sonnenschein, mein Glück und mein liebstes Abenteuer. Dein Lächeln lässt mein Herz schneller schlagen, 
+                    deine Nähe macht alles besser und deine Liebe ist das Beste, was mir jemals passiert ist. Du bringst Farbe in mein Leben, 
+                    so wie die Sonnenblumen die Welt erleuchten.<br><br>
+                    
+                    Ich liebe dich über alles in dieser Welt, Hannah. Jetzt, morgen und für immer. Danke, dass du in meinem Leben bist. 
+                    Du bist meine Person, mein Zuhause, meine Heimat.<br><br>
+                    
+                    Alles Liebe für dich zum Valentinstag,<br>
+                    dein Simon ✨💛💚
+                </div>
+                <button class="close-button" onclick="goToRating()">Weiter ➜</button>
+                <div class="footer">made with love - Simon ❤️</div>
             </div>
         </div>
+    </div>
 
-        <div class="footer">
-            made with love - Simon ❤️
+    <!-- RATING SCREEN -->
+    <div class="screen rating-screen" id="ratingScreen">
+        <div class="rating-container">
+            <div class="rating-title">Bewerte mich und diese Website</div>
+            
+            <div class="rating-group">
+                <div class="rating-label">Wie findest du <strong>diese Website</strong>?</div>
+                <div class="stars-container" id="websiteStars"></div>
+            </div>
+
+            <div class="rating-group">
+                <div class="rating-label">Wie sehr magst du <strong>mich</strong>? 😊</div>
+                <div class="stars-container" id="meStars"></div>
+            </div>
+
+            <div class="warning-message" id="warningMessage">
+                ⚠️ Bitte gib beiden Bewertungen 5 Sterne 😊
+            </div>
+
+            <button class="submit-rating-btn" id="submitBtn" onclick="goToScreenshot()">
+                Bestätigen ✓
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREENSHOT SCREEN -->
+    <div class="screen screenshot-screen" id="screenshotScreen">
+        <div class="screenshot-card">
+            <div class="best-friend-text">
+                🌻 Du bist der beste Freund auf dieser Welt! 🌻
+            </div>
+
+            <div class="rating-display">
+                <span>Diese Website:</span>
+                <div class="rating-stars" id="websiteRatingDisplay"></div>
+            </div>
+
+            <div class="rating-display">
+                <span>Du:</span>
+                <div class="rating-stars" id="meRatingDisplay"></div>
+            </div>
+
+            <div class="whatsapp-instruction">
+                Mach einen Screenshot von dieser Seite und sende ihn mir per WhatsApp! 📱✨
+            </div>
+
+            <button class="whatsapp-link" onclick="openWhatsApp()">
+                ➜ Zu WhatsApp 💬
+            </button>
         </div>
     </div>
 
     <script>
+        let websiteRating = 0;
+        let meRating = 0;
+
         function createSunflowers() {
             const container = document.body;
-            const sunflowerCount = window.innerWidth > 1200 ? 15 : window.innerWidth > 768 ? 10 : 6;
+            const sunflowerCount = window.innerWidth > 1200 ? 12 : window.innerWidth > 768 ? 8 : 5;
 
             for (let i = 0; i < sunflowerCount; i++) {
                 const sunflower = document.createElement('div');
@@ -307,9 +584,9 @@
 
                 const x = Math.random() * window.innerWidth;
                 const y = Math.random() * window.innerHeight;
-                const size = Math.random() * 60 + 40;
-                const duration = Math.random() * 8 + 12;
-                const delay = Math.random() * 2;
+                const size = Math.random() * 70 + 50;
+                const duration = Math.random() * 10 + 15;
+                const delay = Math.random() * 3;
 
                 sunflower.style.left = x + 'px';
                 sunflower.style.top = y + 'px';
@@ -319,17 +596,18 @@
 
                 sunflower.innerHTML = `
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Blütenblätter -->
-                        <circle cx="50" cy="20" r="8" fill="#FFD700"></circle>
-                        <circle cx="70" cy="25" r="8" fill="#FFD700"></circle>
-                        <circle cx="80" cy="45" r="8" fill="#FFD700"></circle>
-                        <circle cx="75" cy="65" r="8" fill="#FFD700"></circle>
-                        <circle cx="50" cy="80" r="8" fill="#FFD700"></circle>
-                        <circle cx="25" cy="65" r="8" fill="#FFD700"></circle>
-                        <circle cx="20" cy="45" r="8" fill="#FFD700"></circle>
-                        <circle cx="30" cy="25" r="8" fill="#FFD700"></circle>
-                        <!-- Mitte -->
-                        <circle cx="50" cy="50" r="12" fill="#8B6914"></circle>
+                        <!-- Blütenblätter Gelb -->
+                        <circle cx="50" cy="15" r="9" fill="#FFD700"></circle>
+                        <circle cx="72" cy="22" r="9" fill="#FFD700"></circle>
+                        <circle cx="85" cy="40" r="9" fill="#FFD700"></circle>
+                        <circle cx="82" cy="62" r="9" fill="#FFD700"></circle>
+                        <circle cx="62" cy="82" r="9" fill="#FFD700"></circle>
+                        <circle cx="38" cy="82" r="9" fill="#FFD700"></circle>
+                        <circle cx="18" cy="62" r="9" fill="#FFD700"></circle>
+                        <circle cx="15" cy="40" r="9" fill="#FFD700"></circle>
+                        <circle cx="28" cy="22" r="9" fill="#FFD700"></circle>
+                        <!-- Mitte Grün -->
+                        <circle cx="50" cy="50" r="14" fill="#34c759"></circle>
                     </svg>
                 `;
 
@@ -352,21 +630,101 @@
         document.head.appendChild(style);
 
         function jumpAway(button) {
-            if (button.style.pointerEvents !== 'none') {
-                const randomX = (Math.random() - 0.5) * 400;
-                const randomY = (Math.random() - 0.5) * 400;
-                button.style.transform = `translate(${randomX}px, ${randomY}px)`;
-            }
+            const randomX = (Math.random() - 0.5) * 300;
+            const randomY = (Math.random() - 0.5) * 300;
+            button.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        function switchScreen(hideId, showId) {
+            document.getElementById(hideId).classList.remove('active');
+            setTimeout(() => {
+                document.getElementById(showId).classList.add('active');
+            }, 300);
         }
 
         function goToMain() {
-            const startScreen = document.getElementById('startScreen');
-            const mainContainer = document.getElementById('mainContainer');
+            switchScreen('startScreen', 'mainScreen');
+        }
 
-            startScreen.classList.add('hidden');
-            setTimeout(() => {
-                mainContainer.classList.add('visible');
-            }, 100);
+        function goToRating() {
+            initializeRatingScreen();
+            switchScreen('mainScreen', 'ratingScreen');
+        }
+
+        function initializeRatingScreen() {
+            websiteRating = 0;
+            meRating = 0;
+
+            const websiteStarsDiv = document.getElementById('websiteStars');
+            const meStarsDiv = document.getElementById('meStars');
+
+            websiteStarsDiv.innerHTML = '';
+            meStarsDiv.innerHTML = '';
+
+            for (let i = 1; i <= 5; i++) {
+                const star1 = document.createElement('span');
+                star1.className = 'star';
+                star1.innerHTML = '⭐';
+                star1.onclick = () => {
+                    websiteRating = i;
+                    updateRatingDisplay('website', i);
+                    checkRatings();
+                };
+                websiteStarsDiv.appendChild(star1);
+
+                const star2 = document.createElement('span');
+                star2.className = 'star';
+                star2.innerHTML = '⭐';
+                star2.onclick = () => {
+                    meRating = i;
+                    updateRatingDisplay('me', i);
+                    checkRatings();
+                };
+                meStarsDiv.appendChild(star2);
+            }
+        }
+
+        function updateRatingDisplay(type, rating) {
+            const container = type === 'website' ? document.getElementById('websiteStars') : document.getElementById('meStars');
+            const stars = container.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        function checkRatings() {
+            const warning = document.getElementById('warningMessage');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (websiteRating === 5 && meRating === 5) {
+                warning.classList.remove('show');
+                submitBtn.classList.add('active');
+            } else {
+                warning.classList.add('show');
+                submitBtn.classList.remove('active');
+            }
+        }
+
+        function goToScreenshot() {
+            displayFinalRatings();
+            switchScreen('ratingScreen', 'screenshotScreen');
+        }
+
+        function displayFinalRatings() {
+            const websiteDisplay = document.getElementById('websiteRatingDisplay');
+            const meDisplay = document.getElementById('meRatingDisplay');
+
+            websiteDisplay.innerHTML = '⭐ ⭐ ⭐ ⭐ ⭐';
+            meDisplay.innerHTML = '⭐ ⭐ ⭐ ⭐ ⭐';
+        }
+
+        function openWhatsApp() {
+            const message = encodeURIComponent('Schau dir die wunderbare Website an, die Simon für mich gemacht hat! 💛🌻❤️');
+            window.open(`https://wa.me/?text=${message}`, '_blank');
         }
 
         // Initialize
