@@ -745,7 +745,7 @@
 
 /* 💛 NEUE WHATSAPP FUNKTION MIT ZUFALL + HÖHERE CHANCE FÜR TEXT 21 */
         function openWhatsApp() {
-            
+
             const messages = [
                 "Du bist wirklich etwas ganz Besonderes für mich 💛",
                 "Ich bin so dankbar, dich zu haben 🥰",
@@ -767,17 +767,15 @@
                 "Ich liebe deine Art einfach unendlich 🥰",
                 "Du bist der Mensch, der mein Herz schneller schlagen lässt 💓",
                 "Mit dir fühlt sich die Welt heller an 🌞",
-        
-                // 💛 Dein Original – 3x für höhere Wahrscheinlichkeit
                 "Ich habe dich Viel zu LIEB um es in Worte zu fassen! Ich liebe DICH! 💛🌻❤️",
                 "Ich habe dich Viel zu LIEB um es in Worte zu fassen! Ich liebe DICH! 💛🌻❤️",
                 "Ich habe dich Viel zu LIEB um es in Worte zu fassen! Ich liebe DICH! 💛🌻❤️"
             ];
-                    
+        
             const randomIndex = Math.floor(Math.random() * messages.length);
             const randomMessage = encodeURIComponent(messages[randomIndex]);
-                
-            window.open(`https://wa.me/?text=${message}`, '_blank');
+        
+            window.location.href = "https://wa.me/?text=" + randomMessage;
         }
 
         // Initialize
