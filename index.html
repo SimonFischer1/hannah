@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Für Hannah ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            overflow: hidden;
+            background: #fafafa;
+            min-height: 100vh;
+            min-width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Sonnenblumen im Hintergrund */
+        .sunflower {
+            position: absolute;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .sunflower svg {
+            display: block;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08));
+        }
+
+        /* Screen Container */
+        .screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* ===== START SCREEN ===== */
+        .start-screen {
+            background: linear-gradient(135deg, #f5fff0 0%, #fffff0 10%);
+            gap: 50px;
+        }
+
+        .question-text {
+            font-size: 3.5em;
+            color: #1d1d1d;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: none;
+            margin: 0 30px;
+            animation: subtle-pulse 2.5s ease-in-out infinite;
+            letter-spacing: -0.5px;
+        }
+
+        @keyframes subtle-pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            z-index: 50;
+        }
+
+        button {
+            padding: 16px 45px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            font-family: inherit;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #34c759, #00d84f);
+            color: white;
+        }
+
+        .yes-btn:hover {
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .no-btn {
+            background: #f0f0f0;
+            color: #1d1d1d;
+            position: relative;
+            border: 1px solid #e5e5e5;
+        }
+
+        .no-btn:hover {
+            animation: jumpAway 0.4s ease-in-out;
+        }
+
+        @keyframes jumpAway {
+            0% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(40px, -35px);
+            }
+            50% {
+                transform: translate(-50px, 25px);
+            }
+            75% {
+                transform: translate(30px, -25px);
+            }
+            100% {
+                transform: translate(-40px, 15px);
+            }
+        }
+
+        /* ===== MAIN CONTENT SCREEN ===== */
+        .main-screen {
+            background: linear-gradient(135deg, #f5fff0 0%, #fffff0 100%);
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            z-index: 10;
+        }
+
+        .content {
+            text-align: center;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            width: 100%;
+        }
+
+        .beating-heart {
+            font-size: 3em;
+            margin-bottom: 25px;
+            animation: heartBeat 1.3s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            10%, 30% {
+                transform: scale(1.18);
+            }
+            20%, 40%, 60%, 80% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+            70% {
+                transform: scale(1.1);
+            }
+        }
+
+        h1 {
+            color: #1d1d1d;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .sweet-message {
+            color: #424245;
+            font-size: 1.1em;
+            line-height: 1.9;
+            margin: 30px 0;
+            font-weight: 400;
+            text-shadow: none;
+        }
+
+        .close-button {
+            background: linear-gradient(135deg, #34c759, #00d84f);
+            color: white;
+            padding: 14px 50px;
+            font-size: 1em;
+            margin-top: 30px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.3);
+        }
+
+        .footer {
+            color: #8e8e93;
+            font-weight: 500;
+            font-size: 0.95em;
+            text-shadow: none;
+            margin-top: 20px;
+        }
+
+        /* ===== RATING SCREEN ===== */
+        .rating-screen {
+            background: linear-gradient(135deg, #f5fff0 0%, #fffff0 100%);
+            gap: 40px;
+        }
+
+        .rating-container {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .rating-title {
+            font-size: 1.8em;
+            color: #1d1d1d;
+            margin-bottom: 30px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+
+        .rating-label {
+            color: #8e8e93;
+            font-size: 1em;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .rating-group {
+            margin-bottom: 40px;
+        }
+
+        .stars-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .star {
+            font-size: 2.5em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0.3;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .star:hover, .star.active {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        .warning-message {
+            color: #ff3b30;
+            font-size: 0.95em;
+            margin-top: 20px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .warning-message.show {
+            display: block;
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-5px);
+            }
+            75% {
+                transform: translateX(5px);
+            }
+        }
+
+        .submit-rating-btn {
+            background: linear-gradient(135deg, #34c759, #00d84f);
+            color: white;
+            padding: 16px 50px;
+            font-size: 1em;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .submit-rating-btn.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .submit-rating-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.3);
+        }
+
+        /* ===== SCREENSHOT SCREEN ===== */
+        .screenshot-screen {
+            background: linear-gradient(135deg, #f5fff0 0%, #fffff0 100%);
+            gap: 30px;
+            padding: 40px 20px;
+        }
+
+        .screenshot-card {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .best-friend-text {
+            font-size: 2em;
+            color: #1d1d1d;
+            font-weight: 600;
+            margin-bottom: 30px;
+            letter-spacing: -0.3px;
+        }
+
+        .rating-display {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .rating-stars {
+            font-size: 2em;
+            display: flex;
+            gap: 8px;
+        }
+
+        .rating-text {
+            color: #8e8e93;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .whatsapp-instruction {
+            color: #424245;
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin: 30px 0;
+            font-weight: 400;
+        }
+
+        .whatsapp-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #34c759, #00d84f);
+            color: white;
+            padding: 16px 50px;
+            font-size: 1em;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .whatsapp-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .question-text {
+                font-size: 2.2em;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .sweet-message {
+                font-size: 1em;
+                line-height: 1.8;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .rating-container {
+                padding: 30px 20px;
+            }
+
+            .stars-container {
+                gap: 10px;
+            }
+
+            .star {
+                font-size: 2em;
+            }
+
+            .screenshot-card {
+                padding: 30px 20px;
+            }
+
+            .best-friend-text {
+                font-size: 1.5em;
+            }
+
+            button, .close-button, .submit-rating-btn, .whatsapp-link {
+                padding: 12px 35px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- START SCREEN -->
+    <div class="screen start-screen active" id="startScreen">
+        <div class="question-text">
+            Hast du mich lieb? 💗
+        </div>
+        <div class="button-container">
+            <button class="yes-btn" onclick="goToMain()">Ja ❤️</button>
+            <button class="no-btn" id="noBtn" onmouseover="jumpAway(this)">Nein 💔</button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT SCREEN -->
+    <div class="screen main-screen" id="mainScreen">
+        <div class="container">
+            <div class="content">
+                <div class="beating-heart">❤️</div>
+                <h1>Für meine liebste Hannah</h1>
+                <div class="sweet-message">
+                    Meine liebste Hannah,<br><br>
+
+                    von Bochum-Langendreer bis nach Krün – die Distanz zwischen uns ist groß, aber meine Liebe zu dir ist unendlich viel größer. 
+                    Während du die schöne Kultur und die wunderschönen Kanäle von Venlo genießt, denke ich ständig an dich und vermisse dich so sehr. 
+                    Jeder Moment ohne dich fühlt sich wie eine Ewigkeit an, und ich kann die Zeit kaum erwarten, bis ich dich wieder in meine Arme nehmen kann.<br><br>
+
+                    Du bist mein Sonnenschein, mein Glück und mein liebstes Abenteuer. Dein Lächeln lässt mein Herz schneller schlagen, 
+                    deine Nähe macht alles besser und deine Liebe ist das Beste, was mir jemals passiert ist. Du bringst Farbe in mein Leben, 
+                    so wie die Sonnenblumen die Welt erleuchten.<br><br>
+
+                    Ich hab dich unglaublich lieb. Danke, dass du in meinem Leben bist. 
+                    Bei dir fühle ich mich unglaulich wohl, was du auch weißt!<br><br>
+
+                    Alles Liebe für dich zum Valentinstag,<br>
+                    dein Simon ✨💛💚
+
+                    Hier ein paar Blumen für dich:<br> <h2> 🌹💐🌸🌺🌷🌻🌼 </h2> <br><br>
+                </div>
+                <button class="close-button" onclick="goToRating()">Hier gehts Weiter ➜</button>
+                <div class="footer">made with love - Simon ❤️</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RATING SCREEN -->
+    <div class="screen rating-screen" id="ratingScreen">
+        <div class="rating-container">
+            <div class="rating-title">Bewerte mich und diese Website</div>
+
+            <div class="rating-group">
+                <div class="rating-label">Wie findest du <strong>diese Website</strong>?</div>
+                <div class="stars-container" id="websiteStars"></div>
+            </div>
+
+            <div class="rating-group">
+                <div class="rating-label">Wie sehr magst du <strong>mich</strong>? 😊</div>
+                <div class="stars-container" id="meStars"></div>
+            </div>
+
+            <div class="warning-message" id="warningMessage">
+                ⚠️ Nicht dein ernst! Ich glaube 5 Sterne sollten drinnen sein! 😊
+            </div>
+
+            <button class="submit-rating-btn" id="submitBtn" onclick="goToScreenshot()">
+                Bestätigen ✓
+            </button>
+        </div>
+    </div>
+
+    <!-- SCREENSHOT SCREEN -->
+    <div class="screen screenshot-screen" id="screenshotScreen">
+        <div class="screenshot-card">
+            <div class="best-friend-text">
+                🌻 Du bist der beste Freund auf dieser Welt! 🌻
+            </div>
+
+            <div class="rating-display">
+                <span>Diese Website:</span>
+                <div class="rating-stars" id="websiteRatingDisplay"></div>
+            </div>
+
+            <div class="rating-display">
+                <span>Simon:</span>
+                <div class="rating-stars" id="meRatingDisplay"></div>
+            </div>
+
+            <div class="whatsapp-instruction">
+                Du bist klasse Hannah! 💌<br> Jetzt musst du nur noch der untenstehenden Anleitung folgen und schon wirst du verzaubert sein 🪄💕
+            </div>
+
+            <div class="whatsapp-Anleitung"> 
+                Bitte erst lesen, dann machen! 😍
+
+                <div class="whatsapp-1">
+                    1. Screenshot abspeichern in der Fotos App<br>
+                </div>
+
+                    <div class="whatsapp-2">
+                        2. Auf den unten stehenden grünen Knopf drücken<br>
+                    </div>
+
+                        <div class="whatsapp-3">
+                            3. Automatische Weiterleitung zu WhatsApp, Simon auswählen & absenden<br>
+                        </div>
+
+                            <div class="whatsapp-4">
+                                4. Sende mir den Screenshot per WhatsApp<br>
+                            </div>
+    </div>
+
+        <button class="whatsapp-link" onclick="openWhatsApp()">
+            ➜ Zu WhatsApp 💬
+        </button>
+    </div>
+</div>
+    <script>
+        let websiteRating = 0;
+        let meRating = 0;
+
+        function createSunflowers() {
+            const container = document.body;
+            const sunflowerCount = window.innerWidth > 1200 ? 12 : window.innerWidth > 768 ? 8 : 5;
+
+            for (let i = 0; i < sunflowerCount; i++) {
+                const sunflower = document.createElement('div');
+                sunflower.className = 'sunflower';
+
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                const size = Math.random() * 70 + 50;
+                const duration = Math.random() * 10 + 15;
+                const delay = Math.random() * 3;
+
+                sunflower.style.left = x + 'px';
+                sunflower.style.top = y + 'px';
+                sunflower.style.width = size + 'px';
+                sunflower.style.height = size + 'px';
+                sunflower.style.animation = `rotate ${duration}s linear ${delay}s infinite`;
+
+                sunflower.innerHTML = `
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Blütenblätter Gelb -->
+                        <circle cx="50" cy="15" r="9" fill="#FFD700"></circle>
+                        <circle cx="72" cy="22" r="9" fill="#FFD700"></circle>
+                        <circle cx="85" cy="40" r="9" fill="#FFD700"></circle>
+                        <circle cx="82" cy="62" r="9" fill="#FFD700"></circle>
+                        <circle cx="62" cy="82" r="9" fill="#FFD700"></circle>
+                        <circle cx="38" cy="82" r="9" fill="#FFD700"></circle>
+                        <circle cx="18" cy="62" r="9" fill="#FFD700"></circle>
+                        <circle cx="15" cy="40" r="9" fill="#FFD700"></circle>
+                        <circle cx="28" cy="22" r="9" fill="#FFD700"></circle>
+                        <!-- Mitte Grün -->
+                        <circle cx="50" cy="50" r="14" fill="#34c759"></circle>
+                    </svg>
+                `;
+
+                container.appendChild(sunflower);
+            }
+        }
+
+        // Add CSS animation for rotating sunflowers
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes rotate {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        function jumpAway(button) {
+            const randomX = (Math.random() - 0.5) * 300;
+            const randomY = (Math.random() - 0.5) * 300;
+            button.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        function switchScreen(hideId, showId) {
+            document.getElementById(hideId).classList.remove('active');
+            setTimeout(() => {
+                document.getElementById(showId).classList.add('active');
+            }, 300);
+        }
+
+        function goToMain() {
+            switchScreen('startScreen', 'mainScreen');
+        }
+
+        function goToRating() {
+            initializeRatingScreen();
+            switchScreen('mainScreen', 'ratingScreen');
+        }
+
+        function initializeRatingScreen() {
+            websiteRating = 0;
+            meRating = 0;
+
+            const websiteStarsDiv = document.getElementById('websiteStars');
+            const meStarsDiv = document.getElementById('meStars');
+
+            websiteStarsDiv.innerHTML = '';
+            meStarsDiv.innerHTML = '';
+
+            for (let i = 1; i <= 5; i++) {
+                const star1 = document.createElement('span');
+                star1.className = 'star';
+                star1.innerHTML = '⭐';
+                star1.onclick = () => {
+                    websiteRating = i;
+                    updateRatingDisplay('website', i);
+                    checkRatings();
+                };
+                websiteStarsDiv.appendChild(star1);
+
+                const star2 = document.createElement('span');
+                star2.className = 'star';
+                star2.innerHTML = '⭐';
+                star2.onclick = () => {
+                    meRating = i;
+                    updateRatingDisplay('me', i);
+                    checkRatings();
+                };
+                meStarsDiv.appendChild(star2);
+            }
+        }
+
+        function updateRatingDisplay(type, rating) {
+            const container = type === 'website' ? document.getElementById('websiteStars') : document.getElementById('meStars');
+            const stars = container.querySelectorAll('.star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        function checkRatings() {
+            const warning = document.getElementById('warningMessage');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (websiteRating === 5 && meRating === 5) {
+                warning.classList.remove('show');
+                submitBtn.classList.add('active');
+            } else {
+                warning.classList.add('show');
+                submitBtn.classList.remove('active');
+            }
+        }
+
+        function goToScreenshot() {
+            displayFinalRatings();
+            switchScreen('ratingScreen', 'screenshotScreen');
+        }
+
+        function displayFinalRatings() {
+            const websiteDisplay = document.getElementById('websiteRatingDisplay');
+            const meDisplay = document.getElementById('meRatingDisplay');
+
+            websiteDisplay.innerHTML = '⭐ ⭐ ⭐ ⭐ ⭐';
+            meDisplay.innerHTML = '⭐ ⭐ ⭐ ⭐ ⭐';
+        }
+
+/* 💛 NEUE WHATSAPP FUNKTION MIT ZUFALL + HÖHERE CHANCE FÜR TEXT 21 */
+        function openWhatsApp() {
+            const message = encodeURIComponent('Ich habe dich Viel zu LIEB um es in Worte zu fassen! Ich liebe DICH! 💛🌻❤️');
+            
+            const messages = [
+                "Du bist wirklich etwas ganz Besonderes für mich 💛",
+                "Ich bin so dankbar, dich zu haben 🥰",
+                "Du bist mein Lieblingsmensch 🌻",
+                "Ich mag einfach alles an dir 😘",
+                "Ich denke gerade an dich und muss lächeln 😊",
+                "Du bedeutest mir mehr, als du denkst 💫",
+                "Ich liebe es, Zeit mit dir zu verbringen 🥹",
+                "Dein Lächeln macht mich glücklich 💛",
+                "Du machst mein Leben bunter 🎨",
+                "Ich mag dich mehr als Schokolade 🍫💕",
+                "Du bist mein sicherer Hafen ⚓",
+                "Mit dir fühlt sich alles einfach richtig an 💞",
+                "Ich freue mich jedes Mal, wenn ich an dich denke 🌷",
+                "Du bist mein schönster Gedanke des Tages 💭💕",
+                "Mit dir ist jeder Moment besonders ✨",
+                "Ich könnte stundenlang mit dir lachen 😄💛",
+                "Du bist mein kleines Stück Glück 🍀",
+                "Ich liebe deine Art einfach unendlich 🥰",
+                "Du bist der Mensch, der mein Herz schneller schlagen lässt 💓",
+                "Mit dir fühlt sich die Welt heller an 🌞",
+        
+                // 💛 Dein Original – 3x für höhere Wahrscheinlichkeit
+                "Ich habe dich Viel zu LIEB um es in Worte zu fassen! Ich liebe DICH! 💛🌻❤️",
+                "Ich habe dich Viel zu LIEB um es in Worte zu fassen! Ich liebe DICH! 💛🌻❤️",
+                "Ich habe dich Viel zu LIEB um es in Worte zu fassen! Ich liebe DICH! 💛🌻❤️"
+            ];
+                    
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            const randomMessage = encodeURIComponent(messages[randomIndex]);
+                
+            window.open(`https://wa.me/?text=${message}`, '_blank');
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            createSunflowers();
+        });
+
+        window.addEventListener('resize', () => {
+            const sunflowers = document.querySelectorAll('.sunflower');
+            sunflowers.forEach(sf => sf.remove());
+            createSunflowers();
+        });
+    </script>
+</body>
+</html>
