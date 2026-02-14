@@ -744,43 +744,40 @@
         }
 
 /* 💛 NEUE WHATSAPP FUNKTION MIT ZUFALL + HÖHERE CHANCE FÜR TEXT 21 */
-        function openWhatsApp() {
-            
-            const messages = [
-                "Du bist wirklich etwas ganz Besonderes für mich 💛",
-                "Ich bin so dankbar, dich zu haben 🥰",
-                "Du bist mein Lieblingsmensch 🌻",
-                "Ich mag einfach alles an dir 😘",
-                "Ich denke gerade an dich und muss lächeln 😊",
-                "Du bedeutest mir mehr, als du denkst 💫",
-                "Ich liebe es, Zeit mit dir zu verbringen 🥹",
-                "Dein Lächeln macht mich glücklich 💛",
-                "Du machst mein Leben bunter 🎨",
-                "Ich mag dich mehr als Schokolade 🍫💕",
-                "Du bist mein sicherer Hafen ⚓",
-                "Mit dir fühlt sich alles einfach richtig an 💞",
-                "Ich freue mich jedes Mal, wenn ich an dich denke 🌷",
-                "Du bist mein schönster Gedanke des Tages 💭💕",
-                "Mit dir ist jeder Moment besonders ✨",
-                "Ich könnte stundenlang mit dir lachen 😄💛",
-                "Du bist mein kleines Stück Glück 🍀",
-                "Ich liebe deine Art einfach unendlich 🥰",
-                "Du bist der Mensch, der mein Herz schneller schlagen lässt 💓",
-                "Mit dir fühlt sich die Welt heller an 🌞",
+function openWhatsApp() {
+
+    const messages = [
+        "Du bist wirklich etwas ganz Besonderes für mich 💛",
+        "Ich bin so dankbar, dich zu haben 🥰",
+        "Du bist mein Lieblingsmensch 🌻",
+        "Ich mag einfach alles an dir 😘",
+        "Ich denke gerade an dich und muss lächeln 😊",
+        "Du bedeutest mir mehr, als du denkst 💫",
+        "Ich liebe es, Zeit mit dir zu verbringen 🥹",
+        "Dein Lächeln macht mich glücklich 💛",
+        "Du machst mein Leben bunter 🎨",
+        "Ich mag dich mehr als Schokolade 🍫💕",
+        "Du bist mein sicherer Hafen ⚓",
+        "Mit dir fühlt sich alles einfach richtig an 💞",
+        "Ich freue mich jedes Mal, wenn ich an dich denke 🌷",
+        "Du bist mein schönster Gedanke des Tages 💭💕",
+        "Mit dir ist jeder Moment besonders ✨",
+        "Ich könnte stundenlang mit dir lachen 😄💛",
+        "Du bist mein kleines Stück Glück 🍀",
+        "Ich liebe deine Art einfach unendlich 🥰",
+        "Du bist der Mensch, der mein Herz schneller schlagen lässt 💓",
+        "Mit dir fühlt sich die Welt heller an 🌞",
         
-                // 💛 Dein Original – 3x für höhere Wahrscheinlichkeit
-                "Du bist wirklich etwas ganz Besonderes für mich 💛",
-                "Mit dir ist jeder Moment besonders ✨",
-                "Ich habe dich Viel zu LIEB um es in Worte zu fassen! Ich liebe DICH! 💛🌻❤️"
-            ];
+        "Du bist wirklich etwas ganz Besonderes für mich 💛",
+        "Mit dir ist jeder Moment besonders ✨",
+        "Ich habe dich Viel zu LIEB um es in Worte zu fassen! Ich liebe DICH! 💛🌻❤️"
+    ];
 
-            
-            const randomIndex = Math.floor(Math.random() * messages.length);
-            const randomMessage = encodeURIComponent(messages[randomIndex]);
-                
-            window.open(`https://wa.me/?text=${message}`, '_blank');
-        }
+    const randomIndex = Math.floor(Math.random() * messages.length);
+    const randomMessage = encodeURIComponent(messages[randomIndex]);
 
+    window.open(`https://wa.me/?text=${randomMessage}`, '_blank');
+}
         // Initialize
         window.addEventListener('load', () => {
             createSunflowers();
